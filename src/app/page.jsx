@@ -52,7 +52,3 @@ export default function PlanetaProjeto() {
     </div>
   );
 }
-
-export default function Loading() {
-  return null;
-}
