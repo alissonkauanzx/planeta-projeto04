@@ -2,7 +2,6 @@
 const nextConfig = {
   // Configurações essenciais para o seu projeto
   reactStrictMode: true,
-  swcMinify: true,
   compress: true,
   
   // Configurações de otimização de imagens
@@ -56,7 +55,7 @@ const nextConfig = {
 
   // Configurações experimentais (se necessário)
   experimental: {
-    serverActions: true, // Mantenha apenas se estiver usando
+    serverActions: {},
     optimizeCss: true,
     scrollRestoration: true,
   },
@@ -65,12 +64,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
     removeConsole: process.env.NODE_ENV === 'production',
-  },
-  
-  // Configurações de internacionalização
-  i18n: {
-    locales: ['pt-BR', 'en-US'],
-    defaultLocale: 'pt-BR',
   },
 };
 
