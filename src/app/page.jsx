@@ -30,8 +30,8 @@ import {
   Zap,
   Sparkles,
 } from "lucide-react";
-import OptimizedSpacesBackground from "@/components/background/OptimizedSpacesBackground";
-import OptimizedCard from "@/components/cards/OptimizedCard";
+import OptimizedSpacesBackground from "@/app/components/background/OptimizedSpacesBackground";
+import OptimizedCard from "@/app/components/cards/OptimizedCard";
 
 export default function PlanetaProjeto() {
   return (
