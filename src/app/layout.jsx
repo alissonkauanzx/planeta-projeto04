@@ -1,10 +1,14 @@
-// filepath: src/app/layout.jsx
 import "./globals.css";
+import OptimizedSpacesBackground from "./components/background/OptimizedSpacesBackground";
+import PlanetaProjeto from "./page";
 
-export default function RootLayout({ children }) {
+export default function RootLayout() {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body>
+        <OptimizedSpacesBackground />
+        <PlanetaProjeto />
+      </body>
     </html>
   );
 }
