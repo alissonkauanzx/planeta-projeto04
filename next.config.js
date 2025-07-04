@@ -8,4 +8,4 @@ const nextConfig = {
   assetPrefix: isProd ? '/planeta-projeto04/' : '',
 }
 
-module.exports = nextConfig
+export default nextConfig
