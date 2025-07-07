@@ -973,21 +973,25 @@ export default function PlanetaProjeto() {
           <div className="flex flex-col md:flex-row gap-6 mb-12">
             <div className="relative flex-1 group">
               <Search className="absolute left-4 top-4 h-5 w-5 text-slate-400 group-focus-within:text-blue-400 transition-colors z-10" />
-              <Input
-                placeholder="Buscar projetos no cosmos..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 h-14 text-lg relative"
-                style={{
-                  background: "rgba(51, 65, 85, 0.8)",
-                  border: "1px solid rgba(71, 85, 105, 0.8)",
-                  borderRadius: "12px",
-                  color: "white",
-                  backdropFilter: "blur(10px)",
-                  boxShadow: "0 0 20px rgba(59, 130, 246, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-              />
+                  <Input
+                    placeholder="Buscar projetos no cosmos..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-12 h-14 text-lg relative"
+                    style={{
+                      background: "rgba(51, 65, 85, 0.8)",
+                      border: "1px solid rgba(71, 85, 105, 0.8)",
+                      borderRadius: "12px",
+                      color: "white",
+                      backdropFilter: "blur(10px)",
+                      boxShadow: "0 0 20px rgba(59, 130, 246, 0.1)",
+                      transition: "all 0.3s ease",
+                      // Fix for mobile keyboard disappearing
+                      imeMode: "auto",
+                    }}
+                    onFocus={(e) => e.currentTarget.setAttribute("inputmode", "text")}
+                    onBlur={(e) => e.currentTarget.removeAttribute("inputmode")}
+                  />
             </div>
 
             <select
@@ -1198,15 +1202,25 @@ export default function PlanetaProjeto() {
       for (let i = 0; i < files.length; i++) {
         const file = files[i]
         try {
-          const blob = await upload(file.name, file, {
-            access: "public",
-            handleUploadUrl: "/api/upload",
+          const formData = new FormData()
+          formData.append("file", file)
+
+          const res = await fetch("/api/upload", {
+            method: "POST",
+            body: formData,
           })
 
+          if (!res.ok) {
+            console.error("Upload failed:", await res.text())
+            continue
+          }
+
+          const data = await res.json()
+
           uploadedFiles.push({
-            name: file.name,
-            url: blob.url,
-            size: file.size,
+            name: data.name,
+            url: data.url,
+            size: data.size,
           })
         } catch (error) {
           console.error("Upload failed:", error)
@@ -2208,7 +2222,11 @@ export default function PlanetaProjeto() {
                     borderRadius: "12px",
                     color: "white",
                     backdropFilter: "blur(10px)",
+                    // Fix for mobile keyboard disappearing
+                    imeMode: "auto",
                   }}
+                  onFocus={(e) => e.currentTarget.setAttribute("inputmode", "text")}
+                  onBlur={(e) => e.currentTarget.removeAttribute("inputmode")}
                 />
                 <Button
                   onClick={handleAddComment}
